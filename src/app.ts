@@ -27,14 +27,16 @@ app.use(express.urlencoded({ extended: false }));
 
 //==========================================
 
-app.get('/',(req:Request,res:Response,next:NextFunction)=>{
-    res.send("hellow ts express2.")
-});
 
 //const v1LoginRouter = require('./routes/login');
 
 
 //Router
+app.get('/',(req:Request,res:Response,next:NextFunction)=>{
+  res.send("hellow ts express2.")
+});
+
+
 app.use('/login', v1LoginRouter.router);
 
 app.listen(5000,()=>{

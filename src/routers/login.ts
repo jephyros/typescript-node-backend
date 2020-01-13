@@ -7,7 +7,7 @@ import {logger} from "../util/logger";
 
 
 
-export let router = Router();
+export const router:Router = Router();
 
 router.get('',(req:Request,res:Response)=>{
     userget("admin",res).catch((error:any)=>{        

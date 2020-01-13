@@ -1,11 +1,16 @@
 import {Router,Request,Response} from 'express';
 import {mysql} from "../util/mysql";
+//const logger = require('../../utils/logger');
+import {logger} from "../util/logger";
+
+
+
 
 
 export let router = Router();
 
 router.get('',(req:Request,res:Response)=>{
-    userget("cis",res).catch((error:any)=>{
+    userget("admin",res).catch((error:any)=>{        
         console.log("error >>>>>>",error)
         res.send("에러발생")
     });
@@ -23,17 +28,13 @@ router.get('/signup',(req:Request,res:Response)=>{
 
 const userget = mysql.excuteSql(async (con: any, id: string,res:Response) => {
     
-    // const result = await con.query('select * from users1', [id]);    
-    // console.log("result >>>>>>",result[0][0].username)
-    // // ...비지니스로직...
-    // res.send("로그인 화면 이름 :  " + result[0][0].username)
-    // return result;
     
     try {
-        const [result] = await con.query('select username from users', [id]);    
-        console.log("result >>>>>>",result)
+        const [result] = await con.query('select user_id,user_name,user_email from bs_account where user_id =?', [id]);    
+        //console.log("result >>>>>>",result)
         // ...비지니스로직...
-        res.send("로그인 화면 이름 :  " + result[0].username)
+        logger.info('조회 성공 : 아이디 <' + id + '>');
+        res.send("로그인 화면 이름 :  " + result[0].user_email)
         return result;
     } catch (error) {
         

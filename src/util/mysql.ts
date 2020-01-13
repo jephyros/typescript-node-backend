@@ -10,22 +10,20 @@ dotenv.config({
 
 const pool = promiseMysql.createPool({
     connectionLimit : 3,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DBNAME,
-    port: process.env.DB_PORT,
+    host: process.env.ACI_DATASOURCE_HOST,
+    user: process.env.ACI_DATASOURCE_DBUSER,
+    password: process.env.ACI_DATASOURCE_DBPASSWORD,
+    database: process.env.ACI_DATASOURCE_DBNAME,
+    port: process.env.ACI_DATASOURCE_PORT,
     
 });
 
 export module mysql {
     export const excuteSql = (fn:any) =>  async (...args:any) => {
         /* DB 커넥션을 한다. */
-        try{
-            console.log('>>>>>>>>>>>>>>>>>',process.env.ACI_DATASOURCE_HOST)
+        try{            
             const con: any = await pool.getConnection();
             
-
             /* 로직에 con과 args(넘겨받은 paramter)를 넘겨준다. */
             const result = await fn(con, ...args).catch((error: any) => {
                 /* 에러시 con을 닫아준다. */

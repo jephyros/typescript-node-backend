@@ -10,15 +10,42 @@ import {logger} from "../util/logger";
 export const router:Router = Router();
 
 router.get('',(req:Request,res:Response)=>{
-    userget("admin",res).catch((error:any)=>{        
+    userget("admin",res).then((result:any)=>{
+        
+        res.status(200).json({
+            resultcode:200,
+            resultdata: result
+        })
+
+    })    
+    .catch((error:any)=>{        
         console.log("error >>>>>>",error)
         res.send("에러발생")
     });
+
     //res.send("로그인화면")
     
 
 });
 
+router.post('',(req:Request,res:Response)=>{
+    userget("admin",res).then((result:any)=>{
+        
+        res.status(200).json({
+            resultcode:200,
+            resultdata: result
+        })
+
+    })    
+    .catch((error:any)=>{        
+        console.log("error >>>>>>",error)
+        res.send("에러발생")
+    });
+
+    //res.send("로그인화면")
+    
+
+});
 
 router.get('/signup',(req:Request,res:Response)=>{
     res.send("회원가입처리")
@@ -34,7 +61,7 @@ const userget = mysql.excuteSql(async (con: any, id: string,res:Response) => {
         //console.log("result >>>>>>",result)
         // ...비지니스로직...
         logger.info('조회 성공 : 아이디 <' + id + '>');
-        res.send("로그인 화면 이름 :  " + result[0].user_email)
+        
         return result;
     } catch (error) {
         

@@ -3,6 +3,7 @@ import * as v1LoginRouter from './routers/login';
 import path from 'path';
 import morgan from 'morgan';
 import moment from 'moment-timezone';
+import cors from 'cors';
 
 
 const accessLogStream = require('file-stream-rotator').getStream({
@@ -24,6 +25,7 @@ const app :Application = express();
 app.use(morgan('combined', { stream: accessLogStream }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 //==========================================
 

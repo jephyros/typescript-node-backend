@@ -1,9 +1,14 @@
 import express,{Application,Request,Response,NextFunction} from 'express';
-import * as v1LoginRouter from './routers/login';
 import path from 'path';
 import morgan from 'morgan';
 import moment from 'moment-timezone';
 import cors from 'cors';
+
+import * as v1LoginRouter from './routers/login';
+import * as v1EquipmentsRouter from './routers/equipments';
+import * as isAuthenticated from './util/isAuthenticated';
+//const isAuthenticated = require('./utils/isAuthenticated');
+
 
 
 const accessLogStream = require('file-stream-rotator').getStream({
@@ -40,6 +45,7 @@ app.get('/',(req:Request,res:Response,next:NextFunction)=>{
 
 
 app.use('/login', v1LoginRouter.router);
+app.use('/equipments',isAuthenticated.verifyJWT ,v1EquipmentsRouter.router);
 
 app.listen(5000,()=>{
     console.log("Server started.")

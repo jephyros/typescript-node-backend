@@ -20,7 +20,7 @@ if (!fs.existsSync(logDir)) {
 
 const dailyRotateFileTransport = new transports.DailyRotateFile({
   level: "debug",
-  filename: `${logDir}/monitering-server_%DATE%.log`,
+  filename: `${logDir}/iEcoProC-APIServer_%DATE%.log`,
   datePattern: "YYYYMMDD",
   zippedArchive: true,
   maxSize: "20m",
